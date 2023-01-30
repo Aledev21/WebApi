@@ -7,10 +7,8 @@ namespace WebApi.Controllers
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {
-            var hereos = new List<SuperHero>
+
+        private static List<SuperHero> heroes = new List<SuperHero>
             {
                 new SuperHero
                 {
@@ -21,8 +19,19 @@ namespace WebApi.Controllers
                     Place = "New York City"
                 }
             };
+        [HttpGet]
+        public async Task<ActionResult<List<SuperHero>>> Get()
+        {
 
-            return Ok(hereos);
+
+            return Ok(heroes);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<SuperHero>>> Addhero(SuperHero hero)
+        {
+            heroes.Add(hero);
+            return Ok(heroes);
         }
     }
 }
