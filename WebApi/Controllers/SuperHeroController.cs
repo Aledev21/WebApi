@@ -51,6 +51,20 @@ namespace WebApi.Controllers
             heroes.Add(hero);
             return Ok(heroes);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<SuperHero>>> UpdateHero(SuperHero request)
+        {
+            var hero = heroes.Find(x => x.Id!= request.Id);
+            if (hero == null)
+                return BadRequest("Hero not found");
+            hero.Name = request.Name;
+            hero.FirstName = request.FirstName;
+            hero.LastName = request.LastName;
+            hero.Place = request.Place;
+
+            return Ok(hero);
+        }                    
     }
 }
         
