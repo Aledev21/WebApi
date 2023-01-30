@@ -17,7 +17,16 @@ namespace WebApi.Controllers
                     FirstName = "Petter",
                     LastName = "Parker",
                     Place = "New York City"
+                },
+                 new SuperHero
+                {
+                    Id = 2,
+                    Name = "Batman",
+                    FirstName = "Bruce",
+                    LastName = "Wayne",
+                    Place = "Gotam"
                 }
+
             };
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> Get()
@@ -25,6 +34,15 @@ namespace WebApi.Controllers
 
 
             return Ok(heroes);
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<SuperHero>> Get(int id)
+        {
+
+            var hero = heroes.Find(x => x.Id == id);
+            if (hero == null)
+                return BadRequest("Hero not found");
+            return Ok(hero);
         }
 
         [HttpPost]
